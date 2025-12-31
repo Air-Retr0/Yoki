@@ -1,4 +1,3 @@
-# might merge this with the undergraduate scraper later on, prompt between undergraduate and/or graduate programs
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -31,7 +30,8 @@ class YorkGraduateProgramScraper:
             if href.startswith("/graduate/programs/") and href != "/graduate/programs":
                 program_name = href.split("/graduate/programs/")[-1].strip()
                 program_url = f"https://futurestudents.yorku.ca{href}"
-                self.programs.append({"name": program_name, "url": program_url})
+                if program_name not in [program["name"] for program in self.programs]:
+                    self.programs.append({"name": program_name, "url": program_url})
 
     def save_to_csv(self):
         if not self.programs:

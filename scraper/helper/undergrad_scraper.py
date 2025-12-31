@@ -26,9 +26,10 @@ class YorkProgramScraper:
         program_links = soup.find_all("a", href=True)
         for link in program_links:
             href = link['href']
-            if "/program/" in href: 
+            if href.startswith("/program/") and href != "/program/": 
                 program_name = href.split("/program/")[-1]
-                self.programs.append({"name": program_name, "url": f"https://futurestudents.yorku.ca/program/{href}"})
+                if program_name not in [program["name"] for program in self.programs]:
+                    self.programs.append({"name": program_name, "url": f"https://futurestudents.yorku.ca{href}"})
 
     def save_to_csv(self):
         if not self.programs:
