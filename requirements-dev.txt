@@ -3,3 +3,4 @@ pytest
 bs4
 requests
 regex
+fastapi

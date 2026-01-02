@@ -7,7 +7,7 @@ class YorkProgramScraper:
     def __init__(self):
         self.directory_url = "https://futurestudents.yorku.ca/program-search"
         self.programs = []
-        self.output_file = '/Users/jahiem/vscode/yoki-api/Yoki/docs/data/programs/undergrad_programs.json'
+        self.output_file = 'docs/data/programs/undergrad_programs.json'
         self.markham_campus_programs = [
             "Computer Science for Software Development",
             "Creative Technologies",
@@ -70,7 +70,13 @@ class YorkProgramScraper:
 
                     # check for dupes again, without this it can add duplicates with different casing
                     if program_name not in [program["name"] for program in self.programs]:
-                        self.programs.append({"id": id,  "name": program_name, "url": f"https://futurestudents.yorku.ca{href}", "is_certificate": is_certificate, "campus": campus})
+                        self.programs.append({
+                            "id": id,  
+                            "name": program_name, 
+                            "url": f"https://futurestudents.yorku.ca{href}", 
+                            "is_certificate": is_certificate, 
+                            "campus": campus
+                            })
                         id += 1
 
     def save_to_json(self):
